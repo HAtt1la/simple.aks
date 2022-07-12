@@ -2,18 +2,25 @@
 
 if [ -z "$1" ] 
     then 
-        echo "Before creating AKS you ahve to create a service principal"
+        echo "Before creating AKS you have to create a service principal"
         echo "This script create it, save the credentials to the spvars.json file"
         echo "and assign it to the azure subscription."
+        echo ""
         echo "Arguments:"
         echo "create - create the service principal"
         echo "delete - delete the service principal. if spvars.json available"
         echo ""
         exit 1
     fi
+#fetching subscription id from default account 
+SUBSCRIPTION="$(az account list --query "[?isDefault].id" -o tsv)"
+if [ -z ${SUBSCRIPTION} ] 
+    then 
+        echo "missing subscription id. Before run the script, please use: az login - after this, the subscription id is available"
+        exit 1
+fi
 
-SUBSCRIPTION='699aca9a-b142-414d-91d7-ab25b8ff988d'
-
+echo $SUBSCRIPTION
 
 if [ "$1" == "create" ]
     then    

@@ -27,8 +27,8 @@ module "cluster" {
   
 }
 
-module "k8s" {
-  source                = "./modules/k8s/"
+module "ingress" {
+  source                = "./modules/ingress/"
   host                  = "${module.cluster.host}"
   client_certificate    = "${base64decode(module.cluster.client_certificate)}"
   client_key            = "${base64decode(module.cluster.client_key)}"
